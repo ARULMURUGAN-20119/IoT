@@ -1,0 +1,80 @@
+#include<LiquidCrystal.h>
+LiquidCrystal lcd(13,12,8,9,10,11);
+void setup()
+{
+  lcd.begin(16,2);
+  pinMode(7,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(4,OUTPUT);
+  pinMode(3,OUTPUT);
+  pinMode(2,OUTPUT);
+  pinMode(1,OUTPUT);
+  pinMode(A0,INPUT);
+}
+void loop()
+{
+  int a,c;
+  a=analogRead(A0);
+  c=0.48*a ;
+  if(c<30)
+  {
+    digitalWrite(3,1);
+    digitalWrite(2,0);
+    digitalWrite(1,0);
+    digitalWrite(7,0);
+    digitalWrite(6,0);
+    digitalWrite(5,0);
+    digitalWrite(4,0);
+    lcd.setCursor(0,0);
+    lcd.print("Temperature:");
+    lcd.setCursor(13,0);
+    lcd.print(c);
+    lcd.setCursor(0,1);
+    lcd.print("LOW");
+    lcd.setCursor(5,1);
+    lcd.print("off");
+    delay(1000);
+    lcd.clear();
+  }
+  else if(c >=30 && c<=40)
+  {
+    digitalWrite(3,0);
+    digitalWrite(2,1);
+    digitalWrite(1,0);
+    digitalWrite(7,0);
+    digitalWrite(6,1);
+    digitalWrite(5,0);
+    digitalWrite(4,1);
+    lcd.setCursor(0,0);
+    lcd.print("Temperature:");
+    lcd.setCursor(13,0);
+    lcd.print(c);
+    lcd.setCursor(0,1);
+    lcd.print("NORMAL");
+    lcd.setCursor(8,1);
+    lcd.print("anti");
+    delay(1000);
+    lcd.clear();
+  }
+  else
+  {
+     digitalWrite(3,0);
+    digitalWrite(2,0);
+    digitalWrite(1,1);
+    digitalWrite(7,1);
+    digitalWrite(6,0);
+    digitalWrite(5,1);
+    digitalWrite(4,0);
+    lcd.setCursor(0,0);
+    lcd.print("Temperature:");
+    lcd.setCursor(13,0);
+    lcd.print(c);
+    lcd.setCursor(0,1);
+    lcd.print("HIGH");
+    lcd.setCursor(6,1);
+    lcd.print("clock");
+    delay(1000);
+    lcd.clear();
+  }
+}
